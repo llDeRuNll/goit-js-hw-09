@@ -1,13 +1,13 @@
 const form = document.querySelector('.feedback-form');
-let formData = {};
+const formData = { email: '', message: '' };
 
 const pageLoad = function () {
   const persistData = JSON.parse(localStorage.getItem('feedback-form-state'));
   if (!persistData) return;
   Object.entries(persistData).forEach(([key, value]) => {
     form.elements[key].value = value;
+    formData[key] = value;
   });
-  formData = persistData;
 };
 pageLoad();
 
@@ -26,6 +26,8 @@ const clearForm = function (event) {
     console.log({ email: email.value, message: message.value });
     localStorage.removeItem('feedback-form-state');
     event.currentTarget.reset();
+    formData.email = '';
+    formData.message = '';
   }
 };
 
